@@ -22,9 +22,3 @@ TODO
 * Go for a walk or something while the Salt Mines sync. This might take a while. To check if its done, do a state.highstate every once in a while and see if the syncthing config updates with the nodes.
 * You can use salt.modules.mine.get from http://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.mine.html to make sure data is being received.
 * If you still have issues, use grains.items to see if syncthing shows up as a grain.
-
-### Known Issues ###
-
-* No API password support , see issue #1
-* SLS does not automatically download latest syncthing version, see issue #2
-* No various architecture support, see issue #3
