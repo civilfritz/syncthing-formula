@@ -1,0 +1,75 @@
+<configuration version="7">
+{%- for folder, foldernodes in pillar['syncthing']['folders'].iteritems() %}
+    <folder id="{{ folder }}" path="{{ pillar['syncthing']['installdir'] }}/Sync/{{ folder }}" ro="false" rescanIntervalS="60" ignorePerms="false">
+{%- for node in foldernodes -%}
+{%- for host, data in salt['mine.get']('*', 'grains.items', expr_form = 'glob').items() -%}
+{%- for key, value in data.items() -%}
+{%- if key == 'syncthing' -%}
+{%- for stkey, stvalue in value.items() -%}
+{%- if stkey == 'key' -%}
+{%- if host == node %}
+        <device id="{{ stvalue }}"></device>
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- for additional_node, additional_node_key in pillar['syncthing']['additional_nodes'].iteritems() -%}
+{%- if additional_node == node %}
+        <device id="{{ additional_node_key }}"></device>
+{%- endif -%}
+{%- endfor -%}
+{%- endfor %}
+        <versioning></versioning>
+        <lenientMtimes>false</lenientMtimes>
+        <copiers>0</copiers>
+        <pullers>0</pullers>
+        <finishers>0</finishers>
+    </folder>
+{%- endfor -%}
+{%- for host, data in salt['mine.get']('*', 'grains.items', expr_form = 'glob').items() -%}
+{%- for key, value in data.items() -%}
+{%- if key == 'syncthing' -%}
+{%- for stkey, stvalue in value.items() -%}
+{%- if stkey == 'key' %}
+    <device id="{{ stvalue }}" name="{{ host }}" compression="true" introducer="false">
+        <address>dynamic</address>
+    </device>
+{%- endif %}
+{%- endfor -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor %}
+{%- for additional_node, additional_node_key in pillar['syncthing']['additional_nodes'].iteritems() %}
+    <device id="{{ additional_node_key }}" name="{{ additional_node }}" compression="true" introducer="false">
+        <address>dynamic</address>
+    </device>
+{%- endfor %}
+    <gui enabled="true" tls="false">
+        <address>0.0.0.0:8080</address>
+    </gui>
+    <options>
+        <listenAddress>0.0.0.0:22000</listenAddress>
+        <globalAnnounceServer>udp4://announce.syncthing.net:22026</globalAnnounceServer>
+        <globalAnnounceEnabled>true</globalAnnounceEnabled>
+        <localAnnounceEnabled>true</localAnnounceEnabled>
+        <localAnnouncePort>21025</localAnnouncePort>
+        <localAnnounceMCAddr>[ff32::5222]:21026</localAnnounceMCAddr>
+        <maxSendKbps>0</maxSendKbps>
+        <maxRecvKbps>0</maxRecvKbps>
+        <reconnectionIntervalS>60</reconnectionIntervalS>
+        <startBrowser>false</startBrowser>
+        <upnpEnabled>true</upnpEnabled>
+        <upnpLeaseMinutes>0</upnpLeaseMinutes>
+        <upnpRenewalMinutes>30</upnpRenewalMinutes>
+        <urAccepted>0</urAccepted>
+        <urUniqueID></urUniqueID>
+        <restartOnWakeup>true</restartOnWakeup>
+        <autoUpgradeIntervalH>12</autoUpgradeIntervalH>
+        <keepTemporariesH>24</keepTemporariesH>
+        <cacheIgnoredFiles>true</cacheIgnoredFiles>
+        <progressUpdateIntervalS>5</progressUpdateIntervalS>
+        <symlinksEnabled>true</symlinksEnabled>
+    </options>
+</configuration>

@@ -1,0 +1,30 @@
+syncthing:
+  installdir: /home/startledphoenix
+  download_link: https://github.com/syncthing/syncthing/releases/download/v0.10.11/syncthing-linux-amd64-v0.10.11.tar.gz
+  download_md5: 00551e0c2b8104f9f0ceedf9986b5096
+  user: startledphoenix
+  group: startledphoenix
+  folders:
+    School:
+      - Dominique
+      - Isabelle
+    Documents:
+      - Dominique
+      - Isabelle
+    Videos:
+      - Dominique
+      - Isabelle
+    Design:
+      - Dominique
+      - Isabelle
+    Pictures:
+      - Dominique
+      - Isabelle
+    AndroidSync:
+      - Dominique
+      - Isabelle
+      - StellarPrincess
+  additional_nodes:
+    StellarPrincess: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
+mine_functions:
+  grains.items: []
