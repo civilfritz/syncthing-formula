@@ -6,25 +6,18 @@ syncthing:
   group: startledphoenix
   folders:
     School:
-      - Dominique
-      - Isabelle
+      - node1
+      - node2
     Documents:
-      - Dominique
-      - Isabelle
+      - node3
+      - node1
     Videos:
-      - Dominique
-      - Isabelle
+      - node1
+      - node2
     Design:
-      - Dominique
-      - Isabelle
-    Pictures:
-      - Dominique
-      - Isabelle
-    AndroidSync:
-      - Dominique
-      - Isabelle
-      - StellarPrincess
+      - node3
+      - node1
   additional_nodes:
-    StellarPrincess: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
+    node3: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
 mine_functions:
   grains.items: []

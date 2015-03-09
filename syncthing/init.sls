@@ -7,7 +7,7 @@ syncthing:
     - source_hash: md5={{ pillar['syncthing']['download_md5'] }}
     - if_missing: {{ pillar['syncthing']['installdir'] }}/bin/syncthing
   cmd.run:
-    - name: mv {{ pillar['syncthing']['installdir'] }}/syncthing-*/syncthing {{ pillar['syncthing']['installdir'] }}/bin/syncthing && rm -rf {{ pillar['syncthing']['installdir'] }}/syncthing-*
+    - name: mkdir -p {{ pillar['syncthing']['installdir'] }}/bin && mv {{ pillar['syncthing']['installdir'] }}/syncthing-*/syncthing {{ pillar['syncthing']['installdir'] }}/bin/syncthing && rm -rf {{ pillar['syncthing']['installdir'] }}/syncthing-*
     - cwd: /tmp
     - creates: {{ pillar['syncthing']['installdir'] }}/bin/syncthing
 
@@ -21,6 +21,16 @@ syncthing_init:
       group: {{ pillar['syncthing']['group'] }}
       installdir: {{ pillar['syncthing']['installdir'] }}
 
+syncthing_configdir:
+  file.directory:
+    - name: {{ pillar['syncthing']['installdir'] }}/.config/syncthing
+    - user: {{ pillar['syncthing']['user'] }}
+    - group: {{ pillar['syncthing']['group'] }}
+    - makedirs: true
+    - require_in:
+      - pkg: syncthing_config
+      - pkg: syncthing_init
+
   service.running:
     - name: syncthing
     - enable: True
@@ -32,3 +42,4 @@ syncthing_config:
     - name: {{ pillar['syncthing']['installdir'] }}/.config/syncthing/config.xml
     - source: salt://syncthing/config/syncthing-config
     - template: jinja
+
