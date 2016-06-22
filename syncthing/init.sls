@@ -14,7 +14,7 @@ syncthing:
 syncthing_init:
   file.managed:
     - name: /etc/init/syncthing.conf
-    - source: salt://syncthing/config/init/syncthing.conf
+    - source: salt://syncthing/files/syncthing.conf
     - template: jinja
     - context:
       user: {{ pillar['syncthing']['user'] }}
@@ -40,6 +40,6 @@ syncthing_configdir:
 syncthing_config:
   file.managed:
     - name: {{ pillar['syncthing']['installdir'] }}/.config/syncthing/config.xml
-    - source: salt://syncthing/config/syncthing-config
+    - source: salt://syncthing/files/config.xml
     - template: jinja
 
