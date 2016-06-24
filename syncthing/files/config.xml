@@ -1,7 +1,8 @@
 <configuration version="7">
-{%- for folder, foldernodes in pillar['syncthing']['folders'].iteritems() %}
+{%- if config['folders'] is defined %}
+{%- for folder, foldernodes in config['folders'].iteritems() %}
 {%- if grains['id'] in foldernodes -%}
-    <folder id="{{ folder }}" path="{{ pillar['syncthing']['installdir'] }}/Sync/{{ folder }}" ro="false" rescanIntervalS="60" ignorePerms="false">
+    <folder id="{{ folder }}" path="{{ config['installdir'] }}/Sync/{{ folder }}" ro="false" rescanIntervalS="60" ignorePerms="false">
 {%- for node in foldernodes -%}
 {%- for host, data in salt['mine.get']('*', 'grains.items', expr_form = 'glob').items() -%}
 {%- for key, value in data.items() -%}
@@ -16,8 +17,8 @@
 {%- endif -%}
 {%- endfor -%}
 {%- endfor -%}
-{%- if pillar['syncthing']['additional_nodes'] is defined -%}
-{%- for additional_node, additional_node_key in pillar['syncthing']['additional_nodes'].iteritems() -%}
+{%- if config['additional_nodes'] is defined -%}
+{%- for additional_node, additional_node_key in config['additional_nodes'].iteritems() -%}
 {%- if additional_node == node %}
         <device id="{{ additional_node_key }}"></device>
 {%- endif -%}
@@ -32,6 +33,7 @@
     </folder>
 {%- endif -%}
 {%- endfor -%}
+{%- endif -%}
 {%- for host, data in salt['mine.get']('*', 'grains.items', expr_form = 'glob').items() -%}
 {%- for key, value in data.items() -%}
 {%- if key == 'syncthing' -%}
@@ -45,8 +47,8 @@
 {%- endif -%}
 {%- endfor -%}
 {%- endfor %}
-{%- if pillar['syncthing']['additional_nodes'] is defined -%}
-{%- for additional_node, additional_node_key in pillar['syncthing']['additional_nodes'].iteritems() %}
+{%- if config['additional_nodes'] is defined -%}
+{%- for additional_node, additional_node_key in config['additional_nodes'].iteritems() %}
     <device id="{{ additional_node_key }}" name="{{ additional_node }}" compression="true" introducer="false">
         <address>dynamic</address>
     </device>

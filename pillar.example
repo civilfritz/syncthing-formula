@@ -1,23 +1,24 @@
 syncthing:
-  installdir: /home/startledphoenix
-  download_link: https://github.com/syncthing/syncthing/releases/download/v0.10.11/syncthing-linux-amd64-v0.10.11.tar.gz
-  download_md5: 00551e0c2b8104f9f0ceedf9986b5096
-  user: startledphoenix
-  group: startledphoenix
-  folders:
-    School:
-      - node1
-      - node2
-    Documents:
-      - node3
-      - node1
-    Videos:
-      - node1
-      - node2
-    Design:
-      - node3
-      - node1
-  additional_nodes:
-    node3: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
-mine_functions:
-  grains.items: []
+  download:
+    prefix: /opt/syncthing
+    source: https://github.com/syncthing/syncthing/releases/download/v0.10.11/syncthing-linux-amd64-v0.10.11.tar.gz
+    format: tar
+    hash: md5=00551e0c2b8104f9f0ceedf9986b5096
+
+  users:
+    - syncthing:
+        folders:
+          School:
+            - node1
+            - node2
+          Documents:
+            - node3
+            - node1
+          Videos:
+            - node1
+            - node2
+          Design:
+            - node3
+            - node1
+        additional_nodes:
+          node3: XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX
