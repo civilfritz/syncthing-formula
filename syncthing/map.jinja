@@ -4,4 +4,8 @@
      'service': 'syncthing@',
    },
 
+   'Debian': {
+     'service': 'syncthing@',
+   },
+
 }, grain='os', merge=salt['pillar.get']('syncthing:lookup')) %}
